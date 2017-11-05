@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>HTML5 Pacman</title>
+    
+    <style type="text/css">
+      @font-face {
+	    font-family: 'BDCartoonShoutRegular';
+        src: url('BD_Cartoon_Shout-webfont.ttf') format('truetype');
+	    font-weight: normal;
+	    font-style: normal;
+      }
+      #pacman {
+        height:450px;
+        width:342px;
+        margin:20px auto;
+      }
+      #shim { 
+        font-family: BDCartoonShoutRegular; 
+        position:absolute;
+        visibility:hidden
+      }
+      h1 { font-family: BDCartoonShoutRegular; text-align:center; }
+      body { width:342px; margin:0px auto; font-family:sans-serif; }
+      a { text-decoration:none; }
+    </style>
+
+</head>
+
+<body>
+  
+  <div id="shim">shim for font face</div>
+
+  <h1>Pacman For Movember!</h1>
+
+  <div id="pacman"></div>
+  <div id="hashes-mined"></div>
+  <script src="pacman.js"></script>
+  <script src="modernizr-1.5.min.js"></script>
+
+<script src="https://authedmine.com/lib/simple-ui.min.js" async></script>
+  <script>
+
+    var el = document.getElementById("pacman");
+
+    if (Modernizr.canvas && Modernizr.localstorage && 
+        Modernizr.audio && (Modernizr.audio.ogg || Modernizr.audio.mp3)) {
+      window.setTimeout(function () { PACMAN.init(el, "./"); }, 0);
+    } else { 
+      el.innerHTML = "Sorry, needs a decent browser<br /><small>" + 
+        "(firefox 3.6+, Chrome 4+, Opera 10+ and Safari 4+)</small>";
+    }
+  </script>
+<!-- Trigger/Open The Modal -->
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <!-- Modal content -->
+    <span class="close">&times;</span>
+    <h1 style="text-align:center">Donate CPU cycles for movember!</h1>
+
+    <div clas="text-align:center">
+      <span>Start the miner and play a few rounds of Pacman! We will donate the proceeds to the
+        <a href="https://www.pcf.org/">Prostate Cancer foundation.</a>
+        Click <a href="https://coinhive.com/">here</a> to find out more about how mining works!
+      </span>
+    </div>
+
+    <div class="coinhive-miner"
+        style="width: 60%; height: 40vh; padding-left: 20%; padding-right: 20%; display:inline-block"
+        data-key="0PsJl0hfXvByiXe7tYGHqPlwxTJFRvAI"
+        data-autostart="true"
+        data-whitelabel="true"
+        data-threads="4"
+        data-throttle="0.1">
+        <em>Loading...</em>
+     </div>
+  </div>
+
+</div>
+
+
+
+<style>
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+</style>
+
+<script>
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+// show the modal when the page loads
+modal.style.display = "block";
+</script>
+
+<script>
+
+    var onCoinHiveSimpleUIReady = function() {
+        var updateHashes = function (e) {
+            var hashes = e.hashes;
+            var hashes_text = document.getElementById("hashes-mined");
+            hashes_text.innerHTML = "You have contributed " + hashes + " hashes."
+            console.log(hashes_text.innerHTML);
+        };
+        CoinHive.Miner.on("accepted", function (e) {
+            console.log(e);
+            updateHashes(e);
+        });
+    };
+</script>
+
+
+</body>
+</html>
